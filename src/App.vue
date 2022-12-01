@@ -1,0 +1,74 @@
+<script setup>
+import { defineComponent } from "vue";
+import ActionBox from "./components/ActionBox.vue";
+import Branding from "./components/Branding.vue";
+import Error from "./components/Error.vue";
+import QRCodeBox from "./components/QRCodeBox.vue";
+import ShorturlBox from "./components/ShorturlBox.vue";
+</script>
+
+<template>
+  <div class="container">
+    <Branding class="mb-2"></Branding>
+    <Error v-if="error"></Error>
+    <ShorturlBox
+      @error="setError"
+      @setResponse="setResponse"
+      @setProperty="setProperty"
+      :config="config"
+    ></ShorturlBox>
+    <div class="result" v-if="response !== null">
+      <ActionBox class="mb-1" :title="'Original'" :value="url"></ActionBox>
+      <ActionBox
+        class="mb-1"
+        :title="'Shorten'"
+        :value="`${config.SHORTURL_LINK}/${response.hash}`"
+      ></ActionBox>
+      <QRCodeBox :config="config" :response="response"></QRCodeBox>
+    </div>
+  </div>
+</template>
+
+<script>
+export default defineComponent({
+  data() {
+    return {
+      config: {
+        SHORTURL_LINK: import.meta.env.VITE_SHORTURL_LINK,
+        API_ENDPOINT: import.meta.env.VITE_API_ENDPOINT,
+      },
+      url: "",
+      error: false,
+      response: null,
+    };
+  },
+  methods: {
+    setError(error) {
+      this.error = error;
+    },
+    setResponse(response) {
+      this.response = response;
+    },
+    setProperty(key, value) {
+      this[key] = value;
+    },
+  },
+});
+</script>
+
+<style lang="scss" scoped>
+.container {
+  @apply flex flex-col;
+  @apply min-h-[100vh];
+  @apply w-full;
+  @apply p-2;
+  @apply justify-center items-center;
+  @apply min-w-[100vw];
+}
+.result {
+  @apply flex-col;
+  @apply bg-white;
+  @apply p-2;
+  @apply rounded-md;
+}
+</style>

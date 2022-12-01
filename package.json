@@ -1,0 +1,23 @@
+{
+  "name": "vuejs",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --host=0.0.0.0",
+    "build": "vite build",
+    "build:inline": "vite build --config vite.config.inline.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "material-icons": "^1.12.2",
+    "qrcode": "^1.5.1",
+    "vite-plugin-singlefile": "^0.13.1",
+    "vue": "^3.2.41"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.2",
+    "sass": "^1.56.1",
+    "vite": "^3.1.8",
+    "vite-plugin-windicss": "^1.8.8",
+    "windicss": "^3.5.6"
+  }
+}
