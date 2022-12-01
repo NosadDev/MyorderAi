@@ -69,16 +69,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .action-box {
+  @apply w-full;
   @apply flex-row;
   @apply flex;
   @apply gap-1;
+  @apply justify-center;
   .title {
     @apply p-2;
     @apply bg-gray-200;
     @apply text-center;
     @apply font-bold;
     @apply rounded-md;
-    @apply w-[25%];
   }
   input {
     @apply flex-col;
@@ -86,12 +87,12 @@ export default defineComponent({
     @apply rounded-md;
     @apply p-2;
     @apply truncate;
-    @apply w-[50%];
+    @apply w-full;
+    @apply overflow-x-auto;
   }
   .button-group {
     @apply flex flex-row gap-1;
-    @apply w-[25%];
-    @apply justify-around;
+    @apply justify-center;
     button {
       @apply bg-gray-200;
       @apply rounded-md;

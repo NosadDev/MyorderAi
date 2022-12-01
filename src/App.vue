@@ -1,9 +1,8 @@
 <script setup>
 import { defineComponent } from "vue";
-import ActionBox from "./components/ActionBox.vue";
 import Branding from "./components/Branding.vue";
 import Error from "./components/Error.vue";
-import QRCodeBox from "./components/QRCodeBox.vue";
+import ResultBox from "./components/ResultBox.vue";
 import ShorturlBox from "./components/ShorturlBox.vue";
 </script>
 
@@ -17,15 +16,7 @@ import ShorturlBox from "./components/ShorturlBox.vue";
       @setProperty="setProperty"
       :config="config"
     ></ShorturlBox>
-    <div class="result" v-if="response !== null">
-      <ActionBox class="mb-1" :title="'Original'" :value="url"></ActionBox>
-      <ActionBox
-        class="mb-1"
-        :title="'Shorten'"
-        :value="`${config.SHORTURL_LINK}/${response.hash}`"
-      ></ActionBox>
-      <QRCodeBox :config="config" :response="response"></QRCodeBox>
-    </div>
+    <ResultBox :url="url" :response="response" :config="config"> </ResultBox>
   </div>
 </template>
 
@@ -64,11 +55,5 @@ export default defineComponent({
   @apply p-2;
   @apply justify-center items-center;
   @apply min-w-[100vw];
-}
-.result {
-  @apply flex-col;
-  @apply bg-white;
-  @apply p-2;
-  @apply rounded-md;
 }
 </style>

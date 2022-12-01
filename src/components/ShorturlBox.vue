@@ -12,9 +12,10 @@ import MatIcon from "./ui/MatIcon.vue";
       required
       v-model="url"
     />
-    <Button>
+    <Button :disabled="pending">
       <p class="font-semibold">Shorten URL</p>
-      <MatIcon class="mx-1">send</MatIcon>
+      <MatIcon class="mx-1 animate-spin" v-if="pending">autorenew</MatIcon>
+      <MatIcon class="mx-1" v-else>send</MatIcon>
     </Button>
   </form>
 </template>
@@ -29,10 +30,12 @@ export default defineComponent({
   data() {
     return {
       url: "",
+      pending: false,
     };
   },
   methods: {
     async shortenURL() {
+      this.pending = true;
       const response = await fetch(this.config.API_ENDPOINT, {
         method: "POST",
         body: JSON.stringify({
@@ -60,6 +63,7 @@ export default defineComponent({
       this.$emit("error", false);
       this.$emit("setResponse", response);
       this.$emit("setProperty", "url", this.url);
+      this.pending = false;
     },
   },
 });
@@ -70,19 +74,22 @@ export default defineComponent({
   @apply flex flex-row gap-1;
   @apply justify-center items-center;
   @apply mb-2;
-  @apply w-full;
+  @apply w-full md:w-[50%] lg:w-[40%] xl:w-[30%];
   input {
     @apply p-2;
     @apply rounded-md;
-    @apply w-[50%] md:w-[20%];
+    @apply w-[60%] 2xl:w-[70%];
+    @apply overflow-x-auto;
   }
   button {
+    @apply w-[40%] 2xl:w-[30%];
     @apply bg-blue-500;
     @apply text-sm md:text-base;
     @apply text-white;
     @apply rounded-md;
     @apply justify-center;
     @apply items-center;
+    @apply disabled:opacity-75;
   }
 }
 </style>
