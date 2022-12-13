@@ -26,7 +26,10 @@ export default defineComponent({
     return {
       config: {
         SHORTURL_LINK: import.meta.env.VITE_SHORTURL_LINK,
-        API_ENDPOINT: import.meta.env.VITE_API_ENDPOINT,
+        API_ENDPOINT: {
+          SCHEME: import.meta.env.VITE_API_ENDPOINT_SCHEME,
+          URL: import.meta.env.VITE_API_ENDPOINT,
+        },
       },
       url: "",
       error: false,

@@ -9,6 +9,7 @@ import MatIcon from "./ui/MatIcon.vue";
       placeholder="Enter url here"
       type="text"
       minlength="2"
+      maxlength="255"
       required
       v-model="url"
     />
@@ -36,15 +37,18 @@ export default defineComponent({
   methods: {
     async shortenURL() {
       this.pending = true;
-      const response = await fetch(this.config.API_ENDPOINT, {
-        method: "POST",
-        body: JSON.stringify({
-          url: encodeURI(this.url),
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      const response = await fetch(
+        `${this.config.API_ENDPOINT.SCHEME}://${this.config.API_ENDPOINT.URL}`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            url: encodeURI(this.url),
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Invalid Response");
@@ -57,6 +61,7 @@ export default defineComponent({
             response: null,
             url: encodeURI(this.url),
           });
+          this.pending = false;
           throw error;
         });
       this.url = encodeURI(this.url);

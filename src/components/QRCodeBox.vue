@@ -15,7 +15,7 @@ import MatIcon from "./ui/MatIcon.vue";
     <div class="qrcode" v-if="qrcodeURL">
       <img
         :src="qrcodeURL"
-        :title="`${config.VITE_SHORTURL_LINK}/${response.hash}`"
+        :title="`${config.SHORTURL_LINK}/${response.hash}`"
       />
     </div>
     <Button @click="downloadQRCode" class="download" v-if="qrcodeURL">
@@ -43,6 +43,14 @@ export default defineComponent({
       qrcodeURL: null,
     };
   },
+  created() {
+    console.log("created");
+  },
+  mounted() {
+    console.log(this.config);
+    console.log("mount", this.hash, this.response.hash, this.qrcodeURL);
+    this.qrcodeURL = null;
+  },
   updated() {
     if (this.hash !== this.response.hash && this.hash != null) {
       this.hash = this.response.hash;
@@ -52,7 +60,7 @@ export default defineComponent({
   methods: {
     async createQRCode() {
       this.qrcodeURL = await QRCode.toDataURL(
-        `${this.config.VITE_SHORTURL_LINK}/${this.hash}`,
+        `${this.config.SHORTURL_LINK}/${this.hash}`,
         {
           errorCorrectionLevel: "H",
           width: 256,
