@@ -1,5 +1,9 @@
 FROM node:18.12.1 as build
 
+ENV VITE_SHORTURL_LINK=shu-vue.nosad.dev
+ENV VITE_API_ENDPOINT_SCHEME=https
+ENV VITE_API_ENDPOINT=shu-vue.nosad.dev/api/v1/shorten
+
 WORKDIR /build
 
 COPY ./ ./
