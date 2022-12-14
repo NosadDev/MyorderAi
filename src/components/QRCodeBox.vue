@@ -43,22 +43,18 @@ export default defineComponent({
       qrcodeURL: null,
     };
   },
-  created() {
-    console.log("created");
-  },
   mounted() {
-    console.log(this.config);
-    console.log("mount", this.hash, this.response.hash, this.qrcodeURL);
     this.qrcodeURL = null;
   },
   updated() {
-    if (this.hash !== this.response.hash && this.hash != null) {
+    if (this.hash !== this.response.hash) {
       this.hash = this.response.hash;
       this.qrcodeURL = null;
     }
   },
   methods: {
     async createQRCode() {
+      this.hash = this.response.hash;
       this.qrcodeURL = await QRCode.toDataURL(
         `${this.config.SHORTURL_LINK}/${this.hash}`,
         {
